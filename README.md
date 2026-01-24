@@ -68,6 +68,8 @@ Running `autostack start` guides you through:
 - GPT-4.1 (OpenAI)
 - Gemini 2.5 Pro (Google)
 
+> Local/offline models (llama.cpp/Ollama) are temporarily paused; please use a cloud model for now.
+
 ## 🔑 API Keys Setup
 
 Create a `.env` file with your API key(s):
@@ -137,7 +139,7 @@ Licensed under MIT – see LICENSE for details.
 
 ## 🔗 Useful Links
 
-- GitHub: [github.com/your-username/autostack](https://github.com/mohammedpithapur/autostack)
+- GitHub: [github.com/mohammedpithapur/autostack](https://github.com/mohammedpithapur/autostack)
 - PyPI: [pypi.org/project/autostack](https://pypi.org/project/autostack_cli)
 
 ⭐ Support the framework by starring the repo!
@@ -145,4 +147,4 @@ Licensed under MIT – see LICENSE for details.
 **AutoStack   SaaS app development reimagined.**
 
 ## 🧭 Future Plan
-- Enable local LLM (llama.cpp/Ollama) with streamlined install checks, automatic GGUF downloads, and safe fallbacks to online providers when local init fails.
+- Re-enable local LLM (llama.cpp/Ollama) after we finish hardening the cloud path—planned with streamlined install checks, automatic GGUF downloads, and safe fallbacks to online providers when local init fails.
