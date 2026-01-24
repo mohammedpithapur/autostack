@@ -107,6 +107,8 @@ class LLMService:
                 if not self.gemini_available:
                     raise ValueError("Failed to configure Google API. Please check your API key.")
                 response = self._generate_with_gemini(prompt, model, system_prompt)
+            elif model.startswith("ollama:") or model.startswith("local:"):
+                raise ValueError("Local LLM support is temporarily disabled. Please select an online model.")
             else:
                 raise ValueError(f"Unsupported model: {model}")
             

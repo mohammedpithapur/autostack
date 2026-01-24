@@ -27,7 +27,7 @@ class ProjectState:
             project_dir: Path to the project directory
         """
         self.project_dir = project_dir
-        self.state_file = project_dir / ".gocodeo" / "state.json"
+        self.state_file = project_dir / ".autostack" / "state.json"
         self._state = {
             "name": "",
             "description": "",
@@ -41,8 +41,8 @@ class ProjectState:
             "files": {}
         }
         
-        # Create .gocodeo directory if it doesn't exist
-        (project_dir / ".gocodeo").mkdir(parents=True, exist_ok=True)
+        # Create .autostack directory if it doesn't exist
+        (project_dir / ".autostack").mkdir(parents=True, exist_ok=True)
         
         # Load existing state if it exists
         if self.state_file.exists():

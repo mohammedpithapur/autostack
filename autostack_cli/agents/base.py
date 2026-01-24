@@ -169,6 +169,7 @@ class BaseAgent:
                 logger.info("Successfully parsed JSON response")
             except json.JSONDecodeError as e:
                 logger.error(f"JSON parse error: {str(e)}")
+                logger.error(f"Response preview: {response[:500]}...")
                 
                 # Try to extract JSON with regex as fallback
                 try:
@@ -182,6 +183,8 @@ class BaseAgent:
                         logger.info("Successfully parsed extracted JSON")
                     else:
                         logger.error("No JSON pattern found in response")
+                        # Print response to console for debugging
+                        print(f"\n[DEBUG] Model response:\n{response[:1000]}\n")
                         return {}
                 except Exception as ex:
                     logger.error(f"Failed to extract JSON: {str(ex)}")

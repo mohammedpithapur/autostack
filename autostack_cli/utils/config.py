@@ -1,5 +1,5 @@
 """
-Configuration utilities for the GoCodeo CLI.
+Configuration utilities for the AutoStack CLI.
 """
 import os
 from pathlib import Path

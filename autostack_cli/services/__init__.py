@@ -1,5 +1,5 @@
 """
-Service layer for the GoCodeo CLI.
+Service layer for the AutoStack CLI.
 """
 from autostack_cli.services.llm_service import LLMService
 

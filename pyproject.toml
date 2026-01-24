@@ -1,6 +1,6 @@
 [project]
-name = "autostack"
-version = "0.8"
+name = "autostack-cli"
+version = "1.1.0"
 description = "AI-powered CLI tool for build your full-stack  applications in minutes"
 
 dependencies = [
@@ -17,7 +17,10 @@ dependencies = [
     "Flask-Migrate==4.0.5",
     "Flask-SQLAlchemy==3.1.1",
     "SQLAlchemy==2.0.23",
-    "Werkzeug==2.3.7"
+    "Werkzeug==2.3.7",
+    "psutil>=5.9.0",  # For system specs detection
+    "requests>=2.31.0",  # For API calls to llama.cpp
+    "huggingface-hub>=0.16.0"  # For downloading models from HuggingFace
 ]
 requires-python = ">=3.10"
 readme="README.md"

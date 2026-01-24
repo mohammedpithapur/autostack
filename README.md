@@ -17,17 +17,6 @@ Powered by cutting-edge AI models, AutoStack automatically scaffolds full-stack 
 - ⚡ **Real-time Capabilities**: Real-time features via Flask integration
 - 📊 **Automated Database Setup**: Auto-generated SQLite schemas and migrations
 
-## 🎥 Project Demo
-
-Watch our project demo to see AutoStack in action:
-
-Add demo video
-
-See how easily you can:
-- Generate a complete SaaS application from scratch
-- Set up authentication and database
-- Deploy your application
-- And much more!
 
 ## 📦 Quick Start
 
@@ -36,13 +25,13 @@ See how easily you can:
 Install from PyPI:
 
 ```bash
-pip install autostack
+pip install autostack_cli
 ```
 
 Or install from source:
 
 ```bash
-git clone https://github.com/your-username/autostack.git
+git clone https://github.com/mohammedpithapur/autostack.git
 cd autostack
 pip install -e .
 ```
@@ -148,10 +137,12 @@ Licensed under MIT – see LICENSE for details.
 
 ## 🔗 Useful Links
 
-- GitHub: [github.com/your-username/autostack](https://github.com/your-username/autostack)
-- PyPI: [pypi.org/project/autostack](https://pypi.org/project/autostack)
-- Documentation: Coming soon!
+- GitHub: [github.com/your-username/autostack](https://github.com/mohammedpithapur/autostack)
+- PyPI: [pypi.org/project/autostack](https://pypi.org/project/autostack_cli)
 
 ⭐ Support the framework by starring the repo!
 
 **AutoStack   SaaS app development reimagined.**
+
+## 🧭 Future Plan
+- Enable local LLM (llama.cpp/Ollama) with streamlined install checks, automatic GGUF downloads, and safe fallbacks to online providers when local init fails.

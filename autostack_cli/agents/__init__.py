@@ -1,3 +1,3 @@
 """
-Agent-based system for GoCodeo CLI.
+Agent-based system for AutoStack CLI.
 """ 

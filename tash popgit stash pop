@@ -1,0 +1,22 @@
+[33m21ba4e4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: commit: Update README with latest features and examples
+[33m09bf19e[m HEAD@{1}: commit: Initial project setup and configuration
+[33m0399be2[m HEAD@{2}: reset: moving to origin/main
+[33mfeed7d8[m HEAD@{3}: commit: Add SQL migrations prompt template
+[33m975753d[m HEAD@{4}: commit: Add data persistence prompt template
+[33m0c74a66[m HEAD@{5}: commit: Add authentication prompt template
+[33m8e7c6c1[m HEAD@{6}: commit: Add UI initialization prompt templates
+[33m472a8e4[m HEAD@{7}: commit: Add system prompt template
+[33m0b1f9d8[m HEAD@{8}: commit: Add constants and reference code descriptions
+[33mf715da7[m HEAD@{9}: commit: Implement NPM tools for dependency management
+[33me47baf4[m HEAD@{10}: commit: Add SQL migration tools with error recovery
+[33mcde192f[m HEAD@{11}: commit: Implement environment file creation tool
+[33m492f352[m HEAD@{12}: commit: Add build tools: initialization, auth, and data
+[33m23500f8[m HEAD@{13}: commit: Implement progress indicators and UI helpers
+[33m33344b9[m HEAD@{14}: commit: Add configuration utilities
+[33mf2ca069[m HEAD@{15}: commit: Implement project state management
+[33m0e332ff[m HEAD@{16}: commit: Add LLM service with multi-provider support
+[33m5d88cbe[m HEAD@{17}: commit: Implement build commands and user prompts
+[33m49c31c4[m HEAD@{18}: commit: Add build agent with tool system
+[33m4c6b1b2[m HEAD@{19}: commit: Implement base agent architecture
+[33me80cb6f[m HEAD@{20}: commit: Add CLI entry point and basic structure
+[33mb589426[m HEAD@{21}: commit (initial): Initial project setup and configuration

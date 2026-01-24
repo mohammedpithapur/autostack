@@ -94,21 +94,18 @@ def start(
     #     supabase_anon_key = typer.prompt("Supabase Anon Key",hide_input=True)
     #     supabase_token = typer.prompt("Supabase Access Token",hide_input=True)
     
-    # Show model options if not provided
+    # Online model selection only (local temporarily disabled)
     if not model:
-        console.print("\nAvailable AI Models:\n")
+        console.print("\n[bold]Available AI Models:[/bold] (local LLM temporarily disabled)\n")
         console.print("1. Claude 3.7 Sonnet (Anthropic)")
         console.print("   High quality code with excellent documentation\n")
-        
         console.print("2. GPT-4.1 (OpenAI)")
         console.print("   Fast and reliable code generation\n")
-        
         console.print("3. Gemini 2.5 Pro (Google)")
         console.print("   Advanced reasoning and error-free code\n")
-        
         model_choice = typer.prompt("Select AI model to use (enter number) [1/2/3]", default="1")
         model = MODELS.get(model_choice, DEFAULT_MODEL)
-    
+
     # Validate API key for the selected model
     _validate_api_key_for_model(model)
     
@@ -182,4 +179,105 @@ def _validate_api_key_for_model(model: str) -> None:
             llm._ensure_gemini_available()
     except Exception as e:
         console.print(f"[red]Error validating API key: {str(e)}[/red]")
-        raise typer.Exit(1) 
+        raise typer.Exit(1)
+
+
+def _show_local_models(console, local_llm_service) -> None:
+    """Display available local models"""
+    models = local_llm_service.get_available_local_models()
+    
+    if models:
+        console.print("\n[bold cyan]Available Local Models:[/bold cyan]\n")
+        for i, model in enumerate(models, 1):
+            size_info = ""
+            if "size" in model and model["size"]:
+                size_info = f" ({local_llm_service.format_size(model['size'])})"
+            console.print(f"{i}. {model['name']}{size_info}")
+            console.print(f"   Type: llama.cpp\n")
+    else:
+        console.print("\n[yellow]No local models found.[/yellow]")
+        console.print("[cyan]Setup llama.cpp:[/cyan]")
+        console.print("1. Download from: https://github.com/ggerganov/llama.cpp/releases")
+        console.print("2. Download a GGUF model from HuggingFace")
+        console.print("3. Start server: [bold cyan]llama-server -m model.gguf -ngl 33[/bold cyan]\n")
+        
+        # Show recommendations based on system specs
+        import psutil
+        ram_gb = psutil.virtual_memory().total / (1024**3)
+        
+        if ram_gb < 8:
+            category = "low"
+        elif ram_gb < 16:
+            category = "medium"
+        else:
+            category = "high"
+        
+        console.print(f"[cyan]Recommended models for your system ({ram_gb:.1f}GB RAM):[/cyan]\n")
+        for model in local_llm_service.MODEL_RECOMMENDATIONS.get(category, []):
+            console.print(f"• {model['name']} - {model['size']}")
+            console.print(f"  {model['description']}\n")
+
+
+def _select_local_model(console, local_llm_service) -> str:
+    """Let user select a local model or download one"""
+    models = local_llm_service.get_available_local_models()
+    
+    if not models:
+        console.print("\n[red]No local models available.[/red]")
+        console.print("\nWould you like to:")
+        console.print("1. Download a model now")
+        console.print("2. Switch to online models")
+        
+        choice = typer.prompt("Select option", default="2")
+        
+        if choice == "1":
+            import psutil
+            ram_gb = psutil.virtual_memory().total / (1024**3)
+            
+            if ram_gb < 8:
+                recommended = local_llm_service.MODEL_RECOMMENDATIONS["low"]
+            elif ram_gb < 16:
+                recommended = local_llm_service.MODEL_RECOMMENDATIONS["medium"]
+            else:
+                recommended = local_llm_service.MODEL_RECOMMENDATIONS["high"]
+            
+            console.print("\n[bold]Recommended models for your system:[/bold]\n")
+            for i, model in enumerate(recommended, 1):
+                console.print(f"{i}. {model['name']} - {model['size']}")
+                console.print(f"   {model['description']}\n")
+            
+            model_choice = typer.prompt("Select model to download (enter number)", default="1")
+            try:
+                selected_model = recommended[int(model_choice) - 1]
+                model_name = selected_model["name"]
+                
+                if typer.confirm(f"\nDownload {model_name}? This may take a while..."):
+                    if local_llm_service.download_model(model_name):
+                        # Prefix local models with "local:" so LLM service recognizes them
+                        return f"local:{model_name}"
+                    else:
+                        console.print("\n[red]Failed to download model. Switching to online models...[/red]")
+                        return "claude-3-7-sonnet-20250219"
+            except (ValueError, IndexError):
+                console.print("[red]Invalid selection[/red]")
+                return "claude-3-7-sonnet-20250219"
+        else:
+            return "claude-3-7-sonnet-20250219"
+    
+    # User has local models, let them choose
+    console.print("\n[bold]Select a local model:[/bold]\n")
+    for i, model in enumerate(models, 1):
+        size_info = ""
+        if "size" in model and model["size"]:
+            size_info = f" ({local_llm_service.format_size(model['size'])})"
+        console.print(f"{i}. {model['name']}{size_info}")
+    
+    model_choice = typer.prompt("Select model (enter number)", default="1")
+    try:
+        selected_model = models[int(model_choice) - 1]
+        # Prefix local models with "local:" so LLM service recognizes them
+        return f"local:{selected_model['name']}"
+    except (ValueError, IndexError):
+        console.print("[red]Invalid selection, using first model[/red]")
+        return f"local:{models[0]['name']}"
+
